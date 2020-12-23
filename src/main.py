@@ -7,14 +7,14 @@ a = 'A'
 a_rule = None
 
 b = 'B'
-b_rule = ['A', '!']
+b_rule = ['C', 'D', '^']
 
 c = 'C'
-c_rule = ['A', 'B', '!', '+', '!']
-# c_rule2 = ['A', 'D', '|']
+c_rule = ['A', 'B', '+']
+c_rule2 = ['A', 'D', '|']
 
 d = 'D'
-d_rule = ['C', 'B', '^']
+d_rule = None
 
 k.add_knowledge(c, c_rule)
 # k.add_knowledge(c, c_rule2)
@@ -29,6 +29,6 @@ print(k)
 
 s = Solver(k)
 
-solve_fact = d
+solve_fact = c
 
 print(f"Fact {solve_fact} is {s.solve_fact(solve_fact)}")

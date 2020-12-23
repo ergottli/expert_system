@@ -25,7 +25,7 @@ class Solver:
         if len(result) == 1:
             return result.pop()
         else:
-            return None
+            return True
 
     def _solve_rule(self, rule):
         if len(rule) == 1:
@@ -42,13 +42,13 @@ class Solver:
     def _get_operands_and_operator(self, rule, i):
         operands = []
         start_position = 0
-        for counter in range(i):
+        if rule[i] == '!':
+            start_position = i - 1
+        for counter in range(start_position, i):
             if isinstance(rule[counter], bool):
                 operand = rule[counter]
             else:
                 operand = self.knowledge_base[rule[counter]]
             operands.append(self._solve_fact(operand))
 
-        if rule[i] == '!':
-            start_position = i - 1
         return operands, start_position
