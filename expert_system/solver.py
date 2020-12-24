@@ -15,7 +15,7 @@ class Solver:
             return node
         if node.fact_state is True:
             return True
-        elif node.rules and not node.processed:  # TODO del processed
+        elif node.rules:
             return self._solve_rules(node.rules)
         else:
             return node.state

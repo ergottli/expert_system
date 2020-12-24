@@ -2,6 +2,7 @@ import sys
 
 from config import IMPLICATION_SYMBOL
 from pythonds.basic import Stack
+from common import error_exit
 
 
 def create_postfix_notation(infixexpr):
@@ -35,12 +36,10 @@ def create_postfix_notation(infixexpr):
 
 def tokenize_rules(rules):
     result = {}
-    for rule in rules:
-        split_rule = rule.split(IMPLICATION_SYMBOL)
-        if split_rule[1].replace(" ", "") == 'F':
-            pass
-        operations, tokens = create_postfix_notation(split_rule[0])
-        for t in split_rule[1].replace(" ", ""):
+    for left, right in rules:
+        operations, tokens = create_postfix_notation(left)
+        right = right.replace('(', '').replace(')', '').replace('+', '')
+        for t in right:
             if t in result.keys():
                 result[t].append(operations)
             else:
@@ -62,10 +61,8 @@ def tokenizer(rules, init_facts, query_facts):
     facts = tokenize_rules(rules)
     fact_check = validate_facts(init_facts, facts)
     if fact_check:
-        print(f'initial fact is not in rules. fact: {fact_check}')
-        sys.exit(0)
+        error_exit(f'initial fact is not in rules. fact: {fact_check}')
     fact_check = validate_facts(facts, facts)
     if fact_check:
-        print(f'Query fact is not in rules. fact: {fact_check}')
-        sys.exit(0)
+        error_exit(f'Query fact is not in rules. fact: {fact_check}')
     return facts, init_facts, query_facts

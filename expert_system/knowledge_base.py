@@ -5,7 +5,6 @@ class Node:
         self.add_rule(rule)
         self.state = False
         self.fact_state = False
-        self.processed = False
 
     def add_rule(self, rule):
         if rule:
