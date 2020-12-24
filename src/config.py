@@ -1,0 +1,18 @@
+from operations import OPERATIONS
+
+COMMENT_SYMBOL = '#'
+IMPLICATION_SYMBOL = '=>'
+INIT_FACTS_SYMBOL = '='
+QUERY_SYMBOL = '?'
+BRACKETS = ['(', ')']
+ENGLISH_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+PERMISSIBLE_L_RULE = BRACKETS + list(OPERATIONS.keys()) + list(ENGLISH_UPPERCASE)
+PERMISSIBLE_R_RULE = BRACKETS + ['+'] + list(ENGLISH_UPPERCASE)
+
+
+ELEMENTS_DICT = {0: 'RULES',
+                 1: 'INITIAL FACTS',
+                 2: 'QUERIES'}
+
+if __name__ == '__main__':
+    print(PERMISSIBLE_L_RULE)

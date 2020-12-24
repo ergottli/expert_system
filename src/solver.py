@@ -3,9 +3,11 @@ from operations import OPERATIONS
 
 class Solver:
     def __init__(self, knowledge_base):
-        self.knowledge_base = knowledge_base.get_base()
+        self.knowledge_base_carry = knowledge_base.get_base()
+        self.knowledge_base = None
 
     def solve_fact(self, fact):
+        self.knowledge_base = self.knowledge_base_carry.copy()
         return self._solve_fact(self.knowledge_base[fact])
 
     def _solve_fact(self, node):
@@ -13,7 +15,7 @@ class Solver:
             return node
         if node.fact_state is True:
             return True
-        elif node.rules:
+        elif node.rules and not node.processed:  # TODO del processed
             return self._solve_rules(node.rules)
         else:
             return node.state
@@ -41,7 +43,7 @@ class Solver:
 
     def _get_operands_and_operator(self, rule, i):
         operands = []
-        start_position = 0
+        start_position = i-2
         if rule[i] == '!':
             start_position = i - 1
         for counter in range(start_position, i):
