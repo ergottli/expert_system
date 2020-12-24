@@ -36,3 +36,6 @@ class ExpertSystem:
                 cprint(f"{q} is {res}", "green")
             else:
                 cprint(f"{q} is {res}", "red")
+
+    def print_knowledge_base(self):
+        print(self.knowledge_base)
