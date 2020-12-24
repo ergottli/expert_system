@@ -38,6 +38,39 @@ def valid_symbols(to_check, example):
     return True
 
 
+def valid_operations(rule):
+    for i in range(len(rule)):  # Проверка, что ближайший символ внутри скобок - факт
+        if rule[i] == '(':
+            if rule[i+1] not in ENGLISH_UPPERCASE:
+                return False
+        if rule[i] == ')':
+            if rule[i-1] not in ENGLISH_UPPERCASE:
+                return False
+    check_rule = rule.replace('(', '').replace(')', '')
+    end = len(check_rule) - 1
+    for i in range(len(check_rule)):  # Проверка !
+        if check_rule[i] == '!':
+            if i == end:
+                return False
+            if check_rule[i+1] not in ENGLISH_UPPERCASE:
+                return False
+    prev_s = '+'
+    for s in check_rule:  # Проверка пропуска операции
+        if s in ENGLISH_UPPERCASE and prev_s in ENGLISH_UPPERCASE:
+            return False
+        prev_s = s
+
+    check_rule = check_rule.replace('!', '')  # rule without negation
+    end = len(check_rule)
+    for i in range(len(check_rule)):  # Проверка + ^ |
+        if check_rule[i] in ['+', '^', '|']:
+            if i == end or i == 0:
+                return False
+            if check_rule[i-1] not in ENGLISH_UPPERCASE or check_rule[i+1] not in ENGLISH_UPPERCASE:
+                return False
+    return True
+
+
 def valid_rules(rules):
     rule_tokens = []
     for rule in rules:
@@ -52,6 +85,9 @@ def valid_rules(rules):
             error_exit(f"Wrong brackets in rule {rule}")
         if not valid_symbols(split_rule[0], PERMISSIBLE_L_RULE) or not valid_symbols(split_rule[1], PERMISSIBLE_R_RULE):
             error_exit(f"Wrong symbol in rule: {rule}")
+        if not valid_operations(split_rule[0]) or not valid_operations(split_rule[1]):
+            error_exit(f"Wrong rule: {rule}")
+
         rule_tokens.append([split_rule[0], split_rule[1]])
 
     return rule_tokens

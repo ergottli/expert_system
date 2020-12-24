@@ -2,10 +2,10 @@
 # all the required rules and symbols, along with the bonus ones, will be
 # shown here. spacing is not important
 
-C => ER # C implies E
+A + !B => F # A and not B implies F
+C => E # C implies E
 A + B + C => D # A and B and C implies D
 A | B => C # A or B implies C
-A + !B => F # A and not B implies F
 C | !G => H # C or not G implies H
 V ^ W => X # V xor W implies X
 A + B => Y # A and B implies Y and Z
