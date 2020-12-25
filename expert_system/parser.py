@@ -1,9 +1,9 @@
 import argparse
 import sys
 from pythonds.basic import Stack
-from config import COMMENT_SYMBOL, IMPLICATION_SYMBOL, INIT_FACTS_SYMBOL, QUERY_SYMBOL, ELEMENTS_DICT, \
+from .config import COMMENT_SYMBOL, IMPLICATION_SYMBOL, INIT_FACTS_SYMBOL, QUERY_SYMBOL, ELEMENTS_DICT, \
     PERMISSIBLE_L_RULE, PERMISSIBLE_R_RULE, ENGLISH_UPPERCASE
-from common import error_exit
+from .common import error_exit
 
 
 def valid_sequence_in_file(last_indexes):
@@ -131,13 +131,18 @@ def parse_file(data):
     return rules, init_facts, query_facts
 
 
-def parse_input():
-    parser = argparse.ArgumentParser(description="expert_system 21-school Moscow")
-    parser.add_argument('-v', help='visualizer', action='store_true')
-    parser.add_argument('-i', help='interactive mode', action='store_true')
-    parser.add_argument('file', help='input file', type=argparse.FileType('r'))
+def parse_input(filepath=None):  # Для теста
+    if filepath:
+        with open(filepath, "r") as file:
+            data = file.readlines()
+    else:
+        parser = argparse.ArgumentParser(description="expert_system 21-school Moscow")
+        parser.add_argument('-v', help='visualizer', action='store_true')
+        parser.add_argument('-i', help='interactive mode', action='store_true')
+        parser.add_argument('file', help='input file', type=argparse.FileType('r'))
 
-    args = parser.parse_args()
-    data = args.file.readlines()
+        args = parser.parse_args()
+        data = args.file.readlines()
+
     rules, init_facts, query_facts = parse_file(data)
     return rules, init_facts, query_facts

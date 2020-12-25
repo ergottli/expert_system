@@ -1,14 +1,14 @@
-from knowledge_base import KnowledgeBase
-from solver import Solver
-from parser import parse_input
-from tokenizer import tokenizer
+from .knowledge_base import KnowledgeBase
+from .solver import Solver
+from .parser import parse_input
+from .tokenizer import tokenizer
 from termcolor import cprint
 
 
 class ExpertSystem:
-    def __init__(self):
+    def __init__(self, filepath=None):
         self.knowledge_base = KnowledgeBase()
-        self.facts, self.init_facts, self.query_facts = tokenizer(*parse_input())
+        self.facts, self.init_facts, self.query_facts = tokenizer(*parse_input(filepath))
         self.enrich_knowledge_base(self.facts)
         self.set_init_facts_knowledge_base(self.init_facts)
         self.s = Solver(self.knowledge_base)

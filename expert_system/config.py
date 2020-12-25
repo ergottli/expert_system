@@ -1,4 +1,4 @@
-from operations import OPERATIONS
+from .operations import OPERATIONS
 
 COMMENT_SYMBOL = '#'
 IMPLICATION_SYMBOL = '=>'

@@ -1,0 +1,7 @@
+# Same conclusion in multiple rules
+B => A
+C => A
+
+=B
+
+?A

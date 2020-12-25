@@ -20,6 +20,7 @@ class Node:
 class KnowledgeBase:
     def __init__(self):
         self.knowledge_base = dict()
+        self.fixed_facts = []
 
     def add_knowledge(self, name, rule):
         if name in self.knowledge_base:
@@ -32,6 +33,7 @@ class KnowledgeBase:
 
     def set_fact_state(self, name):
         self.knowledge_base[name].set_fact_state()
+        self.fixed_facts.append(name)
 
     def __str__(self):
         return "\n".join(list(map(str, self.knowledge_base.values())))

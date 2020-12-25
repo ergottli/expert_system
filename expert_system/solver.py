@@ -1,13 +1,13 @@
-from operations import OPERATIONS
+from .operations import OPERATIONS
 
 
 class Solver:
     def __init__(self, knowledge_base):
-        self.knowledge_base_carry = knowledge_base.get_base()
+        self.knowledge_base_carry = knowledge_base
         self.knowledge_base = None
 
     def solve_fact(self, fact):
-        self.knowledge_base = self.knowledge_base_carry.copy()
+        self.knowledge_base = self.knowledge_base_carry.get_base()
         return self._solve_fact(self.knowledge_base[fact])
 
     def _solve_fact(self, node):
@@ -21,13 +21,30 @@ class Solver:
             return node.state
 
     def _solve_rules(self, rules):
-        result = set()
+        result_rules = []
         for rule in rules:
-            result.add(self._solve_rule(rule))
-        if len(result) == 1:
-            return result.pop()
+            result_rules.append(self._solve_rule(rule))
+        return self._choice_correct_result(rules, result_rules)
+
+    def _choice_correct_result(self, rules, result_rules):
+        result = {True: set(), False: set()}
+        # Определяем, какие результаты были получены от правил с подтвержденными фактами
+        for rule, res_rule in zip(rules, result_rules):
+            for r in rule:
+                if r in self.knowledge_base_carry.fixed_facts:
+                    result[True].add(res_rule)
+                    continue
+                result[False].add(res_rule)
+        if result[True]:
+            return self._get_result(result[True])
         else:
-            return True
+            return self._get_result(result[False])
+
+    def _get_result(self, results):
+        if len(results) == 1:
+            return results.pop()
+        else:
+            return None
 
     def _solve_rule(self, rule):
         if len(rule) == 1:

@@ -1,8 +1,5 @@
-import sys
-
-from config import IMPLICATION_SYMBOL
 from pythonds.basic import Stack
-from common import error_exit
+from .common import error_exit
 
 
 def create_postfix_notation(infixexpr):

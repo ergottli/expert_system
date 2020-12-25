@@ -1,5 +1,5 @@
-from knowledge_base import KnowledgeBase
-from solver import Solver
+from expert_system import KnowledgeBase
+from expert_system import Solver
 
 
 def do_check(rules, init_facts, queries,
