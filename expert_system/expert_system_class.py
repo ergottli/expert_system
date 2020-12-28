@@ -34,8 +34,10 @@ class ExpertSystem:
         for q, res in self.result.items():
             if res is True:
                 cprint(f"{q} is {res}", "green")
-            else:
+            elif res is False:
                 cprint(f"{q} is {res}", "red")
+            else:
+                cprint(f"{q} is Undefined", "yellow")
 
     def print_knowledge_base(self):
         print(self.knowledge_base)
