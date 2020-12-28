@@ -22,8 +22,8 @@ def create_postfix_notation(infixexpr):
                 topToken = opStack.pop()
         else:
             while (not opStack.isEmpty()) and \
-               (prec[opStack.peek()] >= prec[token]):
-                  postfixList.append(opStack.pop())
+                    (prec[opStack.peek()] >= prec[token]):
+                postfixList.append(opStack.pop())
             opStack.push(token)
 
     while not opStack.isEmpty():
@@ -42,7 +42,7 @@ def tokenize_rules(rules):
             else:
                 result[t] = [operations]
         for t in tokens:
-            if not t in result.keys():
+            if t not in result.keys():
                 result[t] = []
     return result
 
