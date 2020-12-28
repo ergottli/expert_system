@@ -1,5 +1,6 @@
 from pythonds.basic import Stack
 from .common import error_exit
+from .config import ENGLISH_UPPERCASE
 
 
 def create_postfix_notation(infixexpr):
@@ -10,7 +11,7 @@ def create_postfix_notation(infixexpr):
     tokens = []
 
     for token in tokenList:
-        if token in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        if token in ENGLISH_UPPERCASE:
             postfixList.append(token)
             tokens.append(token)  # Запоминаем факты
         elif token == '(':
