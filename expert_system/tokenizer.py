@@ -60,7 +60,7 @@ def tokenizer(rules, init_facts, query_facts):
     fact_check = validate_facts(init_facts, facts)
     if fact_check:
         error_exit(f'initial fact is not in rules. fact: {fact_check}')
-    fact_check = validate_facts(facts, facts)
+    fact_check = validate_facts(query_facts, facts)
     if fact_check:
         error_exit(f'Query fact is not in rules. fact: {fact_check}')
     return facts, init_facts, query_facts

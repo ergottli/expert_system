@@ -137,8 +137,6 @@ def parse_input(filepath=None):  # Для теста
             data = file.readlines()
     else:
         parser = argparse.ArgumentParser(description="expert_system 21-school Moscow")
-        parser.add_argument('-v', help='visualizer', action='store_true')
-        parser.add_argument('-i', help='interactive mode', action='store_true')
         parser.add_argument('file', help='input file', type=argparse.FileType('r'))
 
         args = parser.parse_args()
